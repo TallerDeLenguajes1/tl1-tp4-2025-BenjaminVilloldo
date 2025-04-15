@@ -65,14 +65,34 @@ void eliminarNodo(Nodo  * nodito){
     if (nodito) free(nodito); 
 }
 int main(){
-
-    int eleccion;
+    char palabra[50];
+    int eleccion, eleccion2;
     Nodo * Star;
    Star = crearListaVacia();
     printf("**Elija un opcion para realizar**\n");
     printf("1) Buscar tarea por nombre\n");
     scanf("%d",&eleccion);
+    printf("\n---------------------------------------------\n");
+    printf("--------------Opciones-----------------\n");
 
+    switch (eleccion)
+    {
+    case 1:
+        printf("Ingrese 1 si quiere buscar por id, 2 si quiere buscar por nombre:");
+        scanf("%d",&eleccion2);
+        if(eleccion2 == 1){
+            
+        }else if(eleccion2 == 2){
+
+        }else{
+            printf("Eliga el numero correcto");
+        }
+
+        break;
+    
+    default:
+        break;
+    }
 
 
    return 0;
