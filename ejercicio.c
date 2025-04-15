@@ -1,32 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct{
-    int TareaID;//Numérico autoincremental comenzando en 1000
+struct
+{
+    int TareaID;       // Numérico autoincremental comenzando en 1000
     char *Descripcion; //
-    int Duracion; // entre 10 – 100
-}typedef Tarea;
+    int Duracion;      // entre 10 – 100
+} typedef Tarea;
 
-struct Nodo{
+struct Nodo
+{
     Tarea T;
     Nodo *Siguiente;
-}typedef Nodo;
+} typedef Nodo;
 
-Nodo * crearListaVacia(){
+Nodo *crearListaVacia()
+{
     return NULL;
 }
 
-
-Nodo * crearNodo(Tarea *descripcion , int duracion , int ID){
-    Nodo * NNodo= (Nodo*) malloc(sizeof(Nodo));
-    NNodo->T.Descripcion= descripcion;
+Nodo *crearNodo(Tarea *descripcion, int duracion, int ID)
+{
+    Nodo *NNodo = (Nodo *)malloc(sizeof(Nodo));
+    NNodo->T.Descripcion = descripcion;
     NNodo->T.Duracion = duracion;
     NNodo->T.TareaID = ID;
     NNodo->Siguiente = NULL;
     return NNodo;
 }
 
-void InsertarNodo(Nodo ** Star, Nodo *Nodito){
+void InsertarNodo(Nodo **Star, Nodo *Nodito)
+{
     Nodito->Siguiente = *Star;
     *Star = Nodito;
     printf("\n");
@@ -34,14 +38,14 @@ void InsertarNodo(Nodo ** Star, Nodo *Nodito){
     printf("\n");
 }
 
-
-
-void cargaTareas(Nodo ** Star){
+void cargaTareas(Nodo **Star)
+{
     char continuar;
     char descripcion[100];
     int duracion = 0;
     int id = 0;
-    do{
+    do
+    {
         printf("Ingresa los datos de la tarea \n");
         printf("Descripcion: ");
         gets(descripcion);
@@ -51,27 +55,28 @@ void cargaTareas(Nodo ** Star){
         fflush(stdin);
         printf("\nIngrese un id : ");
         scanf("%d", &id);
-        InsertarNodo(Star , crearNodo(descripcion,duracion,id));
+        InsertarNodo(Star, crearNodo(descripcion, duracion, id));
         printf("\n Desea ingresar otra tarea? (s/n)");
         scanf("%c", &continuar);
         fflush(stdin);
-    }while (continuar == 's' || continuar == 'S');
-    
-
+    } while (continuar == 's' || continuar == 'S');
 }
 
-void eliminarNodo(Nodo  * nodito){
+void eliminarNodo(Nodo *nodito)
+{
 
-    if (nodito) free(nodito); 
+    if (nodito)
+        free(nodito);
 }
-int main(){
+int main()
+{
     char palabra[50];
     int eleccion, eleccion2;
-    Nodo * Star;
-   Star = crearListaVacia();
+    Nodo *Star;
+    Star = crearListaVacia();
     printf("**Elija un opcion para realizar**\n");
     printf("1) Buscar tarea por nombre\n");
-    scanf("%d",&eleccion);
+    scanf("%d", &eleccion);
     printf("\n---------------------------------------------\n");
     printf("--------------Opciones-----------------\n");
 
@@ -79,21 +84,23 @@ int main(){
     {
     case 1:
         printf("Ingrese 1 si quiere buscar por id, 2 si quiere buscar por nombre:");
-        scanf("%d",&eleccion2);
-        if(eleccion2 == 1){
-            
-        }else if(eleccion2 == 2){
-
-        }else{
+        scanf("%d", &eleccion2);
+        if (eleccion2 == 1)
+        {
+        }
+        else if (eleccion2 == 2)
+        {
+        }
+        else
+        {
             printf("Eliga el numero correcto");
         }
 
         break;
-    
+
     default:
         break;
     }
 
-
-   return 0;
+    return 0;
 }
