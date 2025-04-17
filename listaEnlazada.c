@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+//1) Desarrolle una interfaz de carga de tareas para solicitar tareas pendientes, 
+//en la cual se solicite descripción y duración de la misma (el id debe ser generado automáticamente por el sistema,
+// de manera autoincremental comenzando desde el número 1000). 
+//Al cabo de cada tarea consulte al usuario si desea ingresar una nueva tarea o finalizar la carga. 
 struct
 {
     int TareaID; // numero incremental
@@ -30,19 +33,52 @@ void mostrarTareas(Nodo* start){
     {
         printf("Id: %d\n",actual->T.TareaID);
         printf("Descripcion: %s\n",actual->T.descripcion);
-        printf("Duracion %d\n",actual->T.duracion);
+        printf("Duracion: %d\n",actual->T.duracion);
         actual = actual->siguiente;
     }
     
 }
+
+int generarId(){
+    static int id = 1000;
+    return id++;
+}
+
+
+
+
 int main(){
+    
+int id,duracion,cantidadTareas;
+char descripcion[100];
+
 Nodo * lista = NULL; // iniciamos en null
 Tarea tarea1;//creamos un dato, tipo de dato Tarea
 
-//datos de manera dinamica
-tarea1.TareaID = 100;
-tarea1.duracion = 50;
-tarea1.descripcion = strdup("Esta es la descripcion");
+
+//Cantidad de tareas
+printf("Primero ingrese la cantidad de tarea: ");
+scanf("%d",&cantidadTareas);
+getchar();
+for (int i = 0; i < cantidadTareas; i++)
+{
+    
+//ID
+tarea1.TareaID=generarId();
+
+//Descripcion
+printf("Ingrese la descripcionde de la tarea: ");
+gets(descripcion);
+tarea1.descripcion=descripcion;
+id = rand()% 1000;
+
+//Duracion
+printf("Ingrese la duracion en horas de la tarea: ");
+scanf("%d",&duracion);
+tarea1.duracion=duracion;
+}
+
+
 //funciones
 insertarNodo(&lista ,tarea1);
 mostrarTareas(lista);
