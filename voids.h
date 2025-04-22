@@ -100,7 +100,6 @@ void mostrarTareas(TNodo *start)
 {
 
     TNodo *actual = start;
-    printf("**Lista de todas las tareas**\n");
     while (actual != NULL)
     {
         printf("Id: %d | Duracion: %d | Descripcion: %s | Estado: %d\n", actual->T.TareaID, actual->T.Duracion, actual->T.Descripcion, actual->T.estado);
@@ -116,7 +115,7 @@ void mostrarTareasPendientes(TNodo *lista, int estado)
     {
         if (lista->T.estado == 1)
         {
-            printf("Id: %d | Descripcion: %s | Duracion: %d | Estado: %d", lista->T.TareaID, lista->T.Descripcion, lista->T.Duracion, lista->T.estado);
+            printf("Id: %d | Descripcion: %s | Duracion: %d | Estado: %d\n", lista->T.TareaID, lista->T.Descripcion, lista->T.Duracion, lista->T.estado);
         }
         lista = lista->Siguiente;
     }
@@ -152,11 +151,40 @@ TNodo *quitarNodoPorId(TNodo **lista, int id)
 
 // CAMBIAR ESTADO DE LAS TAREAS
 
-void cambiarEstado(TNodo *lista, int estado)
+void cambiarARealizada(TNodo **lista,TNodo **lista2)
 {
-    printf("**Lista de tareas pendientes**\n ");
-    mostrarTareasPendientes(lista, 0);
-    printf("Ingrese el id de la tarea que desea cambiar:");
+    int idQUITAR;
+    printf("\nIngrese el id de la tarea que desea cambiar:");
+    scanf("%d",&idQUITAR);
+    TNodo * nodoAMover = quitarNodoPorId(lista,idQUITAR);
+    if (nodoAMover)
+    {
+        insertarNodo(lista2,nodoAMover);
+        nodoAMover->T.estado = 2;
+        printf("Tarea %d: Realizada.",nodoAMover->T.TareaID);
+    }else
+    {
+        printf("El id(%d) no existe",idQUITAR);
+    }
+}
+
+//cambiar a pendiente
+
+void cambiarApendiente(TNodo **lista, TNodo **lista2){
+int id;
+printf("Ingrese el id de la tarea que desea cambiar: ");
+scanf("%d",&id);
+TNodo *nodoAquitar = quitarNodoPorId(lista,id);
+if (nodoAquitar)
+{
+    insertarNodo(lista2,nodoAquitar);
+    printf("Tarea %d:PENDIENTE\n",nodoAquitar->T.TareaID);
+}else
+{
+    printf("Id no encontrado\n");
+}
+
+
 }
 
 
