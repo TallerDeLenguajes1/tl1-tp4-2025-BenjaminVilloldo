@@ -1,32 +1,81 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "voids.h"
 
-
-void insertarNodo(Nodo **start, Tarea nuevaTarea)
+int main()
 {
-    Nodo *nuevo = (Nodo *)malloc(sizeof(Nodo));
-    nuevo->T = nuevaTarea;
-    nuevo->siguiente = *start;
-    *start = nuevo;
-}
+    TNodo *Start = NULL; // al hacer esto inicializamos la lista desde el principio, LA INICIALIZAMOS EN null;
+    TNodo *StartRealizadas = NULL;
 
-void mostrarTareas(Nodo *start)
-{
-    Nodo *actual = start;
-    int i = 1;
-    while (actual != NULL)
+    int id, eleccion,idQuitar;
+    char descripcion;
+    int duracion, estado;
+
+    while (eleccion != 6)
     {
-        printf("\n**Tarea %d**\n", i++);
-        printf("Id: %d\n", actual->T.TareaID);
-        printf("Descripcion: %s\n", actual->T.descripcion);
-        printf("Duracion: %d\n", actual->T.duracion);
-        actual = actual->siguiente;
-    }
-}
+        printf("\n---Elija una funcionalidad de la lista---\n");
+        printf("1 - Cargar tarea pendiente\n2 - Consultar tareas\n3 - Cambiar el estado de una tarea\n4 - Quitar un nodo");
+        scanf("%d", &eleccion);
+        switch (eleccion)
+        {
+        case 1:
+            printf("***CARGA DE TAREAS***\n");
+            crearTarea(&Start);
+            break;
+        case 2:
+            printf("***LISTA DE TAREAS***\n");
 
-int generarId()
-{
-    static int id = 1000;
-    return id++;
+            if (Start == NULL)
+            {
+                printf("No hay tareas para mostrar.");
+                break;
+            }
+            else
+            {
+                int eleccion;
+                printf("1 - Ver todas las tareas \n 2 - Ver tareas pendientes \n 3 - Ver tareas realizadas\n4 - Consultar tarea por id");
+                scanf("%d",&eleccion);
+
+                if (eleccion == 1)
+                {
+                    mostrarTareas(Start);
+                }
+                if (eleccion == 2)
+                {
+                    printf("***Pendientes***\n");
+                    mostrarTareasPendientes(Start,0);
+                }
+                if (eleccion == 4)
+                {
+                    consultarTareasPorId(Start);
+                }
+            }
+
+            break;
+
+        case 3:
+        
+        break;
+        case 4:
+        printf("Ingrese el id del nodo a quitar:");
+        scanf("%d",&idQuitar);
+        TNodo * Nodoquitado = quitarNodoPorId(&Start,idQuitar);
+        if (Nodoquitado != NULL)
+        {
+            printf("La tarea de id fue quitado: %d",Nodoquitado->T.TareaID);
+            free(Nodoquitado->T.Descripcion);
+            free(Nodoquitado);
+        }else
+        {
+            printf("La tarea no fue encontrada.");
+        }
+        
+        break;
+        default:
+            break;
+        }
+    }
+
+    return 0;
 }
